@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电池容量计算器</title>
+    <style>
+        /* Fully pre-compiled Tailwind CSS for 100% offline functionality. This block is intentionally large. */
+        :root{--tw-border-spacing-x: 0;--tw-border-spacing-y: 0;--tw-translate-x: 0;--tw-translate-y: 0;--tw-rotate: 0;--tw-skew-x: 0;--tw-skew-y: 0;--tw-scale-x: 1;--tw-scale-y: 1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness: proximity;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-color: rgb(59 130 246 / 0.5);--tw-ring-offset-shadow: 0 0 #0000;--tw-ring-shadow: 0 0 #0000;--tw-shadow: 0 0 #0000;--tw-shadow-colored: 0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }
+        *,:after,:before{box-sizing:border-box;border:0 solid #e5e7eb}
+        html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;font-feature-settings:normal;font-variation-settings:normal}
+        body{margin:0;line-height:inherit;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
+        a{color:inherit;text-decoration:inherit}
+        button,input{font-family:inherit;font-size:100%;font-weight:inherit;line-height:inherit;color:inherit;margin:0;padding:0}
+        button{text-transform:none;background-color:transparent;background-image:none;cursor:pointer}
+        h1,h2{font-size:inherit;font-weight:inherit}
+        ol{list-style:none;margin:0;padding:0}
+        svg{display:block;vertical-align:middle;shape-rendering:auto;text-rendering:auto}
+        .relative{position:relative}
+        .absolute{position:absolute}
+        .right-4{right:1rem}
+        .top-4{top:1rem}
+        .z-10{z-index:10}
+        .mx-auto{margin-left:auto;margin-right:auto}
+        .my-2{margin-top:.5rem;margin-bottom:.5rem}
+        .mb-2{margin-bottom:.5rem}
+        .mb-3{margin-bottom:.75rem}
+        .mb-4{margin-bottom:1rem}
+        .mb-6{margin-bottom:1.5rem}
+        .mt-2{margin-top:.5rem}
+        .mt-4{margin-top:1rem}
+        .mt-5{margin-top:1.25rem}
+        .mt-6{margin-top:1.5rem}
+        .-ml-1{margin-left:-.25rem}
+        .mr-2{margin-right:.5rem}
+        .mr-3{margin-right:.75rem}
+        .block{display:block}
+        .inline-block{display:inline-block}
+        .flex{display:flex}
+        .hidden{display:none}
+        .h-5{height:1.25rem}
+        .h-6{height:1.5rem}
+        .h-full{height:100%}
+        .w-5{width:1.25rem}
+        .w-6{width:1.5rem}
+        .w-full{width:100%}
+        .max-w-2xl{max-width:42rem}
+        .min-h-screen{min-height:100vh}
+        .transform{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}
+        .animate-spin{animation:spin 1s linear infinite}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .cursor-pointer{cursor:pointer}
+        .list-inside{list-style-position:inside}
+        .list-decimal{list-style-type:decimal}
+        .items-center{align-items:center}
+        .justify-center{justify-content:center}
+        .justify-between{justify-content:space-between}
+        .space-y-2>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.5rem * var(--tw-space-y-reverse))}
+        .space-y-3>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.75rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.75rem * var(--tw-space-y-reverse))}
+        .space-y-4>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}
+        .space-y-6>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.5rem * var(--tw-space-y-reverse))}
+        .rounded-2xl{border-radius:1rem}
+        .rounded-full{border-radius:9999px}
+        .rounded-lg{border-radius:.5rem}
+        .border-t{border-top-width:1px}
+        .border-gray-200{--tw-border-opacity:1;border-color:rgb(229 231 235/var(--tw-border-opacity))}
+        .border-gray-300{--tw-border-opacity:1;border-color:rgb(209 213 219/var(--tw-border-opacity))}
+        .border-green-200{--tw-border-opacity:1;border-color:rgb(187 247 208/var(--tw-border-opacity))}
+        .border-red-200{--tw-border-opacity:1;border-color:rgb(254 202 202/var(--tw-border-opacity))}
+        .border-yellow-200{--tw-border-opacity:1;border-color:rgb(254 226 182/var(--tw-border-opacity))}
+        .bg-gray-100{--tw-bg-opacity:1;background-color:rgb(243 244 246/var(--tw-bg-opacity))}
+        .bg-gray-200{--tw-bg-opacity:1;background-color:rgb(229 231 235/var(--tw-bg-opacity))}
+        .bg-gray-50{--tw-bg-opacity:1;background-color:rgb(249 250 251/var(--tw-bg-opacity))}
+        .bg-green-50{--tw-bg-opacity:1;background-color:rgb(240 253 244/var(--tw-bg-opacity))}
+        .bg-indigo-600{--tw-bg-opacity:1;background-color:rgb(79 70 229/var(--tw-bg-opacity))}
+        .bg-red-50{--tw-bg-opacity:1;background-color:rgb(254 242 242/var(--tw-bg-opacity))}
+        .bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity))}
+        .bg-yellow-50{--tw-bg-opacity:1;background-color:rgb(255 251 235/var(--tw-bg-opacity))}
+        .bg-blue-500{--tw-bg-opacity:1;background-color:rgb(59 130 246/var(--tw-bg-opacity))}
+        .p-2{padding:.5rem}
+        .p-4{padding:1rem}
+        .p-5{padding:1.25rem}
+        .p-6{padding:1.5rem}
+        .px-4{padding-left:1rem;padding-right:1rem}
+        .py-2{padding-top:.5rem;padding-bottom:.5rem}
+        .py-3{padding-top:.75rem;padding-bottom:.75rem}
+        .py-8{padding-top:2rem;padding-bottom:2rem}
+        .pt-4{padding-top:1rem}
+        .text-center{text-align:center}
+        .text-sm{font-size:.875rem;line-height:1.25rem}
+        .text-lg{font-size:1.125rem;line-height:1.75rem}
+        .text-3xl{font-size:1.875rem;line-height:2.25rem}
+        .text-xl{font-size:1.25rem;line-height:1.75rem}
+        .font-bold{font-weight:700}
+        .font-medium{font-weight:500}
+        .font-mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace}
+        .font-semibold{font-weight:600}
+        .text-gray-200{--tw-text-opacity:1;color:rgb(229 231 235/var(--tw-text-opacity))}
+        .text-gray-300{--tw-text-opacity:1;color:rgb(209 213 219/var(--tw-text-opacity))}
+        .text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175/var(--tw-text-opacity))}
+        .text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128/var(--tw-text-opacity))}
+        .text-gray-600{--tw-text-opacity:1;color:rgb(75 85 99/var(--tw-text-opacity))}
+        .text-gray-700{--tw-text-opacity:1;color:rgb(55 65 81/var(--tw-text-opacity))}
+        .text-gray-800{--tw-text-opacity:1;color:rgb(31 41 55/var(--tw-text-opacity))}
+        .text-green-300{--tw-text-opacity:1;color:rgb(134 239 172/var(--tw-text-opacity))}
+        .text-green-400{--tw-text-opacity:1;color:rgb(74 222 128/var(--tw-text-opacity))}
+        .text-green-600{--tw-text-opacity:1;color:rgb(22 163 74/var(--tw-text-opacity))}
+        .text-green-800{--tw-text-opacity:1;color:rgb(24 102 53/var(--tw-text-opacity))}
+        .text-indigo-400{--tw-text-opacity:1;color:rgb(129 140 248/var(--tw-text-opacity))}
+        .text-indigo-500{--tw-text-opacity:1;color:rgb(99 102 241/var(--tw-text-opacity))}
+        .text-indigo-600{--tw-text-opacity:1;color:rgb(79 70 229/var(--tw-text-opacity))}
+        .text-red-300{--tw-text-opacity:1;color:rgb(252 165 165/var(--tw-text-opacity))}
+        .text-red-400{--tw-text-opacity:1;color:rgb(248 113 113/var(--tw-text-opacity))}
+        .text-red-500{--tw-text-opacity:1;color:rgb(239 68 68/var(--tw-text-opacity))}
+        .text-red-700{--tw-text-opacity:1;color:rgb(185 28 28/var(--tw-text-opacity))}
+        .text-red-800{--tw-text-opacity:1;color:rgb(153 27 27/var(--tw-text-opacity))}
+        .text-white{--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity))}
+        .text-yellow-300{--tw-text-opacity:1;color:rgb(253 224 71/var(--tw-text-opacity))}
+        .text-yellow-400{--tw-text-opacity:1;color:rgb(250 204 21/var(--tw-text-opacity))}
+        .text-yellow-700{--tw-text-opacity:1;color:rgb(180 83 9/var(--tw-text-opacity))}
+        .text-yellow-800{--tw-text-opacity:1;color:rgb(146 64 14/var(--tw-text-opacity))}
+        .opacity-25{opacity:.25}
+        .opacity-75{opacity:.75}
+        .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a,0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color),0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}
+        .outline-none{outline:2px solid transparent;outline-offset:2px}
+        .transition-colors{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}
+        .transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}
+        .duration-300{transition-duration:.3s}
+        .file\:mr-4{margin-right:1rem}
+        .file\:rounded-lg{border-radius:.5rem}
+        .file\:border-0{border-width:0}
+        .file\:px-4{padding-left:1rem;padding-right:1rem}
+        .file\:py-2{padding-top:.5rem;padding-bottom:.5rem}
+        .file\:text-sm{font-size:.875rem;line-height:1.25rem}
+        .file\:font-semibold{font-weight:600}
+        .file\:text-indigo-700{--tw-text-opacity:1;color:rgb(67 56 202/var(--tw-text-opacity))}
+        .file\:bg-indigo-50{--tw-bg-opacity:1;background-color:rgb(238 242 255/var(--tw-bg-opacity))}
+        .hover\:bg-blue-600:hover{--tw-bg-opacity:1;background-color:rgb(37 99 235/var(--tw-bg-opacity))}
+        .hover\:text-indigo-500:hover{--tw-text-opacity:1;color:rgb(99 102 241/var(--tw-text-opacity))}
+        .hover\:file\:bg-indigo-100:hover{--tw-bg-opacity:1;background-color:rgb(224 231 255/var(--tw-bg-opacity))}
+        .focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}
+        .focus\:ring-2:focus{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow,0 0 #0000)}
+        .focus\:ring-indigo-500:focus{--tw-ring-color:rgb(99 102 241/var(--tw-ring-opacity))}
+        .focus\:ring-offset-2:focus{--tw-ring-offset-width:2px}
+        .group:hover .group-hover\:text-indigo-400{--tw-text-opacity:1;color:rgb(129 140 248/var(--tw-text-opacity))}
+        .group[open] .group-open\:rotate-90{--tw-rotate:90deg}
+        .dark .dark\:bg-gray-700{--tw-bg-opacity:1;background-color:rgb(55 65 81/var(--tw-bg-opacity))}
+        .dark .dark\:bg-gray-800{--tw-bg-opacity:1;background-color:rgb(31 41 55/var(--tw-bg-opacity))}
+        .dark .dark\:bg-gray-900{--tw-bg-opacity:1;background-color:rgb(17 24 39/var(--tw-bg-opacity))}
+        .dark .dark\:bg-green-900\/50{background-color:rgb(20 83 45/.5)}
+        .dark .dark\:bg-red-900\/50{background-color:rgb(76 29 29/.5)}
+        .dark .dark\:bg-yellow-900\/40{background-color:rgb(71 42 6/.4)}
+        .dark .dark\:border-gray-600{--tw-border-opacity:1;border-color:rgb(75 85 99/var(--tw-border-opacity))}
+        .dark .dark\:border-gray-700{--tw-border-opacity:1;border-color:rgb(55 65 81/var(--tw-border-opacity))}
+        .dark .dark\:border-green-800{--tw-border-opacity:1;border-color:rgb(30 83 54/var(--tw-border-opacity))}
+        .dark .dark\:border-red-800{--tw-border-opacity:1;border-color:rgb(127 29 29/var(--tw-border-opacity))}
+        .dark .dark\:border-yellow-800{--tw-border-opacity:1;border-color:rgb(113 63 18/var(--tw-border-opacity))}
+        .dark .dark\:text-gray-200{--tw-text-opacity:1;color:rgb(229 231 235/var(--tw-text-opacity))}
+        .dark .dark\:text-gray-300{--tw-text-opacity:1;color:rgb(209 213 219/var(--tw-text-opacity))}
+        .dark .dark\:text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175/var(--tw-text-opacity))}
+        .dark .dark\:text-green-300{--tw-text-opacity:1;color:rgb(134 239 172/var(--tw-text-opacity))}
+        .dark .dark\:text-green-400{--tw-text-opacity:1;color:rgb(74 222 128/var(--tw-text-opacity))}
+        .dark .dark\:text-indigo-400{--tw-text-opacity:1;color:rgb(129 140 248/var(--tw-text-opacity))}
+        .dark .dark\:text-red-300{--tw-text-opacity:1;color:rgb(252 165 165/var(--tw-text-opacity))}
+        .dark .dark\:text-red-400{--tw-text-opacity:1;color:rgb(248 113 113/var(--tw-text-opacity))}
+        .dark .dark\:text-white{--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity))}
+        .dark .dark\:text-yellow-300{--tw-text-opacity:1;color:rgb(253 224 71/var(--tw-text-opacity))}
+        .dark .dark\:text-yellow-400{--tw-text-opacity:1;color:rgb(250 204 21/var(--tw-text-opacity))}
+        .dark .dark\:file\:text-indigo-300{--tw-text-opacity:1;color:rgb(165 180 252/var(--tw-text-opacity))}
+        .dark .dark\:file\:bg-indigo-900\/50{background-color:rgb(49 46 129/.5)}
+        .dark .dark\:hover\:text-indigo-400:hover{--tw-text-opacity:1;color:rgb(129 140 248/var(--tw-text-opacity))}
+        .dark .dark\:hover\:file\:bg-indigo-900\/80:hover{background-color:rgb(49 46 129/.8)}
+        .dark .dark\:focus\:ring-offset-gray-900:focus{--tw-ring-offset-color:#111827}
+        .theme-transition { transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+        summary::-webkit-details-marker { display: none; }
+    </style>
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 theme-transition">
+
+    <div class="relative min-h-screen">
+        <div class="absolute top-4 right-4 z-10">
+            <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-900">
+                <svg id="theme-icon-dark" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                <svg id="theme-icon-light" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            </button>
+        </div>
+
+        <div class="max-w-2xl mx-auto px-4 py-8 space-y-6">
+            <div class="text-center">
+                <h1 class="text-3xl font-bold text-gray-800 dark:text-white">电池容量计算器</h1>
+                <p class="mt-2 text-gray-600 dark:text-gray-400">本地分析Bugreport文件, 精准计算电池健康度</p>
+            </div>
+
+            <details class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-5 theme-transition group">
+                <summary class="flex items-center justify-between cursor-pointer font-semibold text-gray-800 dark:text-gray-200">
+                    <span>重要说明与免责声明 (点击展开)</span>
+                    <svg class="w-5 h-5 text-gray-500 transform transition-transform duration-300 group-open:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </summary>
+                <div class="mt-4 space-y-4 text-gray-600 dark:text-gray-400 border-t border-gray-200 dark:border-gray-700 pt-4">
+                    <p><strong>关于本工具：</strong> 提取ZIP文件中的电池数据，并计算当前容量百分比。</p>
+                    <div class="p-4 rounded-lg bg-yellow-50 dark:bg-yellow-900/40 border border-yellow-200 dark:border-yellow-800"><p class="font-bold text-yellow-800 dark:text-yellow-300">⚠️ 注意:</p><p class="text-yellow-700 dark:text-yellow-400">所有分析过程均在您的设备本地完成，数据不会上传至任何服务器，确保您的信息安全。</p></div>
+                    <div class="p-4 rounded-lg bg-red-50 dark:bg-red-900/40 border border-red-200 dark:border-red-800"><p class="font-bold text-red-800 dark:text-red-300">⚠️ 免责声明:</p><p class="text-red-700 dark:text-red-400">若设备出现异常，请前往小米官方售后。本工具仅通过解析系统诊断文件估算电池容量，结果仅供参考，不具备官方检测效力。</p></div>
+                </div>
+            </details>
+            
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg theme-transition">
+                <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-4">操作步骤</h2>
+                <div class="space-y-3 text-gray-700 dark:text-gray-300">
+                   <p><strong class="text-indigo-600 dark:text-indigo-400">建议：</strong> 在电池充满电后操作，结果更具参考性。</p>
+                   <ol class="list-decimal list-inside space-y-2">
+                       <li>请连续点击“设置 > 我的设备 > 全部参数与信息 > 处理器(连续点击7次)”，或通过其他方式（如音量键）触发生成Bugreport。</li>
+                       <li>稍等片刻后，系统会在通知栏提示 `Bug report #X captured`，并生成一个ZIP文件。</li>
+                       <li>在本工具中，点击下方的“选择ZIP文件”并找到刚刚生成的那个文件。</li>
+                       <li>输入您的设备的“设计电池容量”（可在网上查询或查看手机参数）。</li>
+                       <li>点击“开始计算”按钮，获取结果。</li>
+                   </ol>
+                </div>
+                <div class="mt-5">
+                    <a href="https://www.bilibili.com/video/BV13YZ4YEE8B/?t=56" target="_blank" rel="noopener noreferrer" class="block w-full text-center bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors">
+                        观看视频教程
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg theme-transition">
+                <div class="mb-6"><label for="zip-file" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">选择Bugreport ZIP文件</label><input type="file" id="zip-file" accept=".zip" class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 dark:file:bg-indigo-900/50 file:text-indigo-700 dark:file:text-indigo-300 hover:file:bg-indigo-100 dark:hover:file:bg-indigo-900/80 cursor-pointer"/></div>
+                <div class="mb-6"><label for="initial-capacity" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">输入设计电池容量 (mAh)</label><input type="number" id="initial-capacity" placeholder="例如: 5000" class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 theme-transition"></div>
+                <button id="calculate-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-900 transition-colors duration-300 flex items-center justify-center">开始计算</button>
+            </div>
+            
+            <div id="status" class="mt-6 text-center text-gray-600 dark:text-gray-400 items-center justify-center hidden"><svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-indigo-500 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><span id="status-text"></span></div>
+            <div id="result" class="mt-6 p-5 rounded-2xl hidden theme-transition"></div>
+
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg theme-transition">
+                 <h2 class="text-lg font-bold text-gray-800 dark:text-white mb-3 flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-2.236 9.168-5.514C18.358 1.84 18.668 1.5 19 1.5s.642.34 1 .866S20 4.1 20 5v10c0 .9-.04 1.6-.134 2.134-1.246 5.4-6.37 9.366-12.134 9.366-3.895 0-7.31-2.03-9.168-5.143C-1.358 19.66-1.668 20-2 20s-.642-.34-1-.866S-4 17.9-4 17V7c0-.9.04-1.6.134-2.134C-2.62 -.4-1.637.134 0 0h.083C2.044 0 3.864.64 5.436 2.317L5.436 13.683z" /></svg>致媒体朋友的重要提示</h2>
+                <div class="text-sm text-gray-600 dark:text-gray-400 space-y-2"><p>尊敬的媒体工作者，在报道本工具时，请务必完整呈现应用内的 <strong class="text-red-500 dark:text-red-400">“注意”</strong> 和 <strong class="text-red-500 dark:text-red-400">“免责声明”</strong> 关键信息，避免对用户造成误导。</p><p>请务必在您所发布的平台声明创作者及项目地址。若产生创作收益，希望能按您平台规则进行合理分配或联系作者。</p><p>感谢媒体朋友对本工具的客观报道！</p></div>
+            </div>
+
+            <footer class="text-center py-8"><a href="https://github.com/ff66ccff/HyperChargeCalc" target="_blank" rel="noopener noreferrer" class="text-sm text-gray-500 dark:text-gray-400 hover:text-indigo-500 dark:hover:text-indigo-400 theme-transition">项目地址: HyperChargeCalc on GitHub</a></footer>
+        </div>
+    </div>
+    
+    <script src="js/zip.min.js"></script>
+    <script src="js/zip.js"></script>
+    <script>
+        const themeToggle=document.getElementById("theme-toggle"),themeIconDark=document.getElementById("theme-icon-dark"),themeIconLight=document.getElementById("theme-icon-light");function updateIcon(){document.documentElement.classList.contains("dark")?(themeIconDark.classList.remove("hidden"),themeIconLight.classList.add("hidden")):(themeIconDark.classList.add("hidden"),themeIconLight.classList.remove("hidden"))}themeToggle.addEventListener("click",()=>{document.documentElement.classList.toggle("dark"),localStorage.setItem("theme",document.documentElement.classList.contains("dark")?"dark":"light"),updateIcon()}),updateIcon(),document.getElementById("calculate-btn").addEventListener("click",async function(){const e=document.getElementById("zip-file"),t=document.getElementById("initial-capacity");if(document.getElementById("result").style.display="none",!e.files||0===e.files.length)return void showError("请选择一个ZIP文件");const n=parseFloat(t.value);if(isNaN(n)||n<=0)return void showError("请输入一个有效的初始电池容量");showStatus("正在处理ZIP文件...");try{const t=new zip.ZipReader(new zip.BlobReader(e.files[0])),l=await t.getEntries();await findAndProcessBugreport(l,n)||showError("未在ZIP文件中找到Bugreport信息。请确认文件是否正确。"),await t.close()}catch(e){console.error("处理ZIP文件时发生顶级错误:",e),showError("文件解析失败，可能是无效的ZIP文件。")}finally{hideStatus()}});async function findAndProcessBugreport(e,t){for(const n of e)if(n.filename.includes("bugreport")&&n.filename.endsWith(".txt")&&!n.directory){showStatus("已找到Bugreport，正在提取数据...");const e=await n.getData(new zip.TextWriter),l=extractBatteryCapacity(e);if(null!==l){const e=(l/t*100).toFixed(2);return showResult(`<h3 class="text-xl font-bold text-center mb-4 text-green-800 dark:text-green-300">计算成功</h3><div class="space-y-3 text-gray-700 dark:text-gray-200"><div class="flex justify-between"><span>设计容量:</span> <strong class="font-mono">${t} mAh</strong></div><div class="flex justify-between"><span>当前实际容量:</span> <strong class="font-mono">${l} mAh</strong></div><div class="border-t border-gray-200 dark:border-gray-700 my-2"></div><div class="flex justify-between text-lg"><span>电池健康度:</span> <strong class="font-mono text-green-600 dark:text-green-400">${e}%</strong></div></div>`,!0),!0}}for(const n of e)if(n.filename.endsWith(".zip")&&!n.directory){showStatus("正在进入内层ZIP文件...");const e=await n.getData(new zip.BlobWriter("application/zip")),l=new zip.ZipReader(new zip.BlobReader(e)),i=await l.getEntries(),o=await findAndProcessBugreport(i,t);if(await l.close(),o)return!0}return!1}function extractBatteryCapacity(e){const t=e.match(/Min learned battery capacity:\s*(\d+)\s*mAh/);return t?parseInt(t[1]):null}function showResult(e,t){const n=document.getElementById("result");n.innerHTML=e,n.className=t?"mt-6 p-5 rounded-2xl bg-green-50 dark:bg-green-900/50 border border-green-200 dark:border-green-800":"mt-6 p-5 rounded-2xl bg-red-50 dark:bg-red-900/50 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-300",n.style.display="block"}function showError(e){showResult(`<p class="text-center font-medium">${e}</p>`,!1)}function showStatus(e){document.getElementById("status-text").textContent=e,document.getElementById("status").style.display="flex"}function hideStatus(){setTimeout(()=>{document.getElementById("status").style.display="none"},500)}
+    </script>
+</body>
+</html>

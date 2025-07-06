@@ -1,0 +1,8 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- 这里是基础主题，我们继承一个没有顶部标题栏的Material 3主题 -->
+    </style>
+
+    <style name="AppTheme" parent="Base.AppTheme" />
+</resources>
